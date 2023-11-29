@@ -307,6 +307,11 @@ const updateTable = () => {
     checkoutButton.type = 'button';
     checkoutButton.innerText = 'Checkout';
     checkoutCell.append(checkoutButton);
+    // Add click event listener to the checkout button
+    checkoutButton.addEventListener('click', function() {
+    // Redirect to checkout.html
+    window.location.href = 'checkout.html';
+    });
 
     
 };
@@ -336,26 +341,33 @@ const parent = document.querySelector('#menuBtns'); //picks parent element
       })
     console.log('total', total);//debugs for total
 
-      // Confirmation of item being added to list
-    const alertPlaceholder = document.getElementById('menuSection'); // Change the selector to match the actual parent element
-    const appendAlert = (message, type) => {
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = `
-    <div class="alert alert-${type} alert-dismissible" role="alert">
+    // Confirmation of item being added to list
+const alertPlaceholder = document.body; // Append the alert to the body
+const appendAlert = (message, type) => {
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = `
+  <div class="alert alert-${type} alert-dismissible" role="alert">
       <div>${message}</div>
-    </div>`;
+  </div>`;
 
-  alertPlaceholder.prepend(wrapper);
+  // Apply styles for a fixed position at the bottom of the viewport
+  wrapper.style.position = 'fixed';
+  wrapper.style.bottom = '0';
+  wrapper.style.left = '0';
+  wrapper.style.right = '0';
+  wrapper.style.zIndex = '9999'; // Set a high z-index to ensure it appears above everything
+
+  document.body.appendChild(wrapper);
 
   // Adds a timeout to remove the alert after a certain period
   setTimeout(() => {
-    wrapper.remove();
+      wrapper.remove();
   }, 3000); // Remove the alert after 3 seconds
 };
 
-  //click event listener where an item is added to the cart
-  const alertMessage = `${e.target.previousElementSibling.previousElementSibling.previousElementSibling.innerText} added to order!`;
-  appendAlert(alertMessage, 'success');
+// Click event listener where an item is added to the cart
+const alertMessage = `${e.target.previousElementSibling.previousElementSibling.previousElementSibling.innerText} added to order!`;
+appendAlert(alertMessage, 'success');
 
     // Reset total
     total = 0;
