@@ -227,7 +227,7 @@
 
 })(jQuery);
 
-
+//start of the menu section
 const menuSection = document.querySelector('#menuSection');
 const container = document.createElement('div');
 container.classList.add('container');
